@@ -1,3 +1,4 @@
+import Comments from './Comments/Comments';
 import Poststyle from './Post.module.css';
 
 const Post = () => {
@@ -21,6 +22,25 @@ const Post = () => {
                 </p>
                 <p> <a href=""> 👉 devonlane.design</a></p>
                 <p><a href="">#uiux #userexperience</a></p>         
+            </div>
+
+            <form className={Poststyle.commentForm}>
+                <strong>Deixe seu feedback</strong>
+
+                <textarea placeholder='Deixe um comentário'>
+
+                </textarea>
+
+                <footer>
+                    <button type='submit'>Comentar</button> 
+                </footer>
+
+            </form>
+
+            <div className={Poststyle.commentList}>
+                <Comments></Comments>
+                <Comments></Comments>
+                <Comments></Comments>
             </div>
         </article>
     )

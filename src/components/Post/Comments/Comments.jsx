@@ -1,12 +1,13 @@
 import { ThumbsUp, Trash } from "phosphor-react";
 import React from "react";
+import Avatar from "../../Avatar/Avatar";
 import style from './Comments.module.css';
 
 
 const Comments = () => {
     return (
         <section className={style.comment}>
-            <img src="https://github.com/BrunoAraujooDev" alt="" />
+            <Avatar isBordered={false} source="https://github.com/maykbrito.png"/>
             <div className={style.commentBox}>
                 <div className={style.commentContent}>
                     <header>
@@ -16,10 +17,10 @@ const Comments = () => {
                         </div>
 
                         <button title="Deletar comentário">
-                            <Trash size={20}/>
+                            <Trash size={24}/>
                         </button>
                     </header>
-                    <p>Adorei seu novo portifa Devon!</p>
+                    <p>Adorei seu novo portfólio Devon!</p>
                 </div>
                 <footer>
                     <button>

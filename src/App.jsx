@@ -23,9 +23,9 @@ const posts = [
   {
     id: 2,
     author: {
-      avatarUrl: "https://github.com/BrunoAraujooDev.png",
-      name: 'Bruno Araujo',
-      role: 'Dev Front-end Jr.'
+      avatarUrl: "https://github.com/maykbrito.png",
+      name: 'Mayk Brito',
+      role: 'Dev Front-end Pleno.'
     },
     publishetAt: new Date('2022-07-31 10:00:00'),
     content: [
@@ -45,8 +45,9 @@ function App() {
         <Sidebar />
         <main>
           {
-            posts.map(post => {
+            posts.map((post, i) => {
               return <Post
+                key={i}
                 author={post.author}
                 content={post.content}
                 publishedAt={post.publishetAt}

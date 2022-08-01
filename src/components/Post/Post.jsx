@@ -3,8 +3,12 @@ import Comments from './Comments/Comments';
 import Poststyle from './Post.module.css';
 import {format, formatDistanceToNow} from 'date-fns';
 import ptBr from 'date-fns/locale/pt-BR';
+import { useState } from 'react';
 
 const Post = ({author, publishedAt, content}) => {
+
+    const [comments, setComments] = useState(['post daora'])
+    const [newComment, setNewComment] = useState('');
 
     const dateTitle = format(publishedAt, "dd 'de' LLLL 'às' HH:mm'h'", {locale: ptBr})
 
@@ -13,7 +17,31 @@ const Post = ({author, publishedAt, content}) => {
         addSuffix: true
     })
 
-    const dateTime = format(publishedAt, "yyyy", {locale: ptBr})
+    const handleComment = () => {
+        event.preventDefault();
+
+        setComments([...comments, newComment]);
+        setNewComment('');
+
+    }
+
+    const handleInvalidComemnt = () => {
+        event.target.setCustomValidity("O campo é obrigatório!");
+    }
+
+
+    const handleNewComment = () => {
+
+        event.target.setCustomValidity('')
+        setNewComment(event.target.value)
+    }
+
+    const deleteComment = (comment) =>{
+
+        const commentListWithoutDeletedone = comments.filter(item => item !== comment);
+
+        setComments(commentListWithoutDeletedone)
+    }
 
     return (
         <article className={Poststyle.post}>
@@ -29,38 +57,34 @@ const Post = ({author, publishedAt, content}) => {
             </header>
 
             <div className={Poststyle.content}>
-                {content.map(parag => {
+                {content.map((parag, i) => {
                     if(parag.type === "paragraph"){
-                        return <p>{parag.content}</p>
+                        return <p key={i}>{parag.content}</p>
                     } else if (parag.type === "link"){
-                        return <p><a href="#">{parag.content}</a></p>
+                        return <p key={i}><a href="#">{parag.content}</a></p>
                     }
                 })}
-                {/* <p>Fala pessoal 👋</p>   
-                <p>Finalmente finalizei meu novo site/portfólio. 
-                    Foi um baita desafio criar todo o design e codar na unha, mas consegui 💪🏻
-                </p>
-                <p> <a href=""> 👉 devonlane.design</a></p>
-                <p><a href="">#uiux #userexperience</a></p>          */}
             </div>
 
-            <form className={Poststyle.commentForm}>
+            <form onSubmit={handleComment} className={Poststyle.commentForm}>
                 <strong>Deixe seu feedback</strong>
 
-                <textarea placeholder='Deixe um comentário'>
+                <textarea placeholder='Deixe um comentário' name="texto" onChange={handleNewComment} value={newComment} onInvalid={handleInvalidComemnt} required> 
 
                 </textarea>
 
                 <footer>
-                    <button type='submit'>Comentar</button> 
+                    <button type='submit' disabled={newComment.length === 0}>Comentar</button> 
                 </footer>
 
             </form>
 
             <div className={Poststyle.commentList}>
-                <Comments></Comments>
-                <Comments></Comments>
-                <Comments></Comments>
+                {comments.map(comment => {
+                    return (
+                        <Comments  key={comment} comment={comment} onDeleteComment={deleteComment}/>
+                    )
+                })}
             </div>
         </article>
     )

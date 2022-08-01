@@ -25,7 +25,7 @@ const Comments = () => {
                 <footer>
                     <button>
                         <ThumbsUp/>
-                        Aplaudir <span>20</span>
+                        Curtir <span>20</span>
                     </button>
                 </footer>
             </div>
